@@ -76,6 +76,8 @@ function foo(id = uniqId(), x = id){
 
 ## rest/gather operator
 
+if ... is used on the left hand side of an equals, in an assignment context, it is a gather/rest as opposed to a spread
+
 ```
 // this function can take as many args as it wants
 
@@ -109,5 +111,161 @@ str.split('')
 
 //new
 [...str]
+
+```
+
+## desctructuring
+
+destructuring is an assignment operation
+
+```
+// array desctructuring
+
+function foo(){
+  return [1,2,3]
+}
+
+var [
+  a,
+  b = 42,
+  c
+] = foo()
+
+/// if foo returns null
+
+function foo(){
+  return null
+}
+
+var [
+  a,
+  b = 42,
+  c,
+  ...args
+  //gathers the rest of the values into an array called args
+] = foo() || []
+
+
+//// ex 3.
+
+var a,b,c,args
+
+var o = {}
+
+[
+  o.a,
+  o.b = 42,
+  o.c,
+  ...o.args
+] = foo()
+
+
+/// ex 4.
+
+function foo(){
+  return [1,2,3,[4,5,6]]
+}
+
+var a,b,c,args,d,e
+
+[
+  a,
+  b = 42,
+  c,
+  [
+    d,
+    ,
+    e
+  ]
+] = foo()
+
+
+```
+
+```
+var a =  [1,2,3]
+
+[x,y,...a] = [0,...a, 4]
+
+//or
+
+[ , , ...a] = [0, ...a, 4]
+
+```
+
+```
+function foo(){
+  return [1,2,3,4,[5,6,7]]
+}
+
+var a,b
+
+var x = [a,b] = foo()
+
+console.log(x) /// [1,2,3,4,[5,6,7]]
+```
+## object destructuring
+
+```
+function foo(){
+  return {a:1, b:2, c:3}
+}
+
+var {
+  a,
+  b: X = 42,
+  c
+} = foo() || {}
+
+```
+
+## objects
+
+```
+//concise
+ var a = 1
+ var c = "hello"
+ var obj = {
+   a,
+   b() {},
+   [c]: 42,
+   [c+"fn"]() {},
+   *foo(){}, //concise generator
+   *[c+"gn"]() {}
+
+ }
+```
+
+## template strings
+
+```
+function foo(strings,...values){
+  console.log('strings',strings)
+  console.log('values',values)
+  return "I am evil"
+}
+
+var name = "alex"
+var age = 24
+
+var msg = foo`Hi ${name}
+your age is ${age}`
+
+console.log(msg)
+```
+
+## iterators
+
+```
+var arr = [1,2,3]
+var str = 'Hello'
+
+for (var v of str){
+  console.log(v)
+}
+
+[...str]
+
+var [x,y, ...rest] = [ ...str ]
 
 ```
