@@ -38,9 +38,7 @@ const log = (x) => console.log('Res',x)
 // Use safeGet and _.head to find the first initial of the user
 // {
 //   const user = {id: 2, name: "Albert"}
-//   const safeGet = curry((x,o) => {
-//     return Maybe(o[x])
-//   })
+//   const safeGet = curry((x,o) => Maybe(o[x]))
 //   const ex3 = (o) => map(head,safeGet('name',o))
 //   test('ex1', t =>  {
 //     let foo =
@@ -61,7 +59,6 @@ const log = (x) => console.log('Res',x)
   //   }
   // }
   const ex4 = (n) => map(i => parseInt(i),Maybe(n))
-
   test('ex1', t =>  {
     t.deepEquals(Maybe(4), ex4("4"))
     t.end()
