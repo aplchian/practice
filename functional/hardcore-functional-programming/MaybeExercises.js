@@ -58,9 +58,9 @@ const log = (x) => console.log('Res',x)
   //     return parseInt(n);
   //   }
   // }
-  const ex4 = (n) => map(i => parseInt(i),Maybe(n))
-  test('ex1', t =>  {
-    t.deepEquals(Maybe(4), ex4("4"))
-    t.end()
-  })
-}
+//   const ex4 = (n) => map(i => parseInt(i),Maybe(n))
+//   test('ex1', t =>  {
+//     t.deepEquals(Maybe(4), ex4("4"))
+//     t.end()
+//   })
+// }

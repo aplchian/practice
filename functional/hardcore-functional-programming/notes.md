@@ -49,6 +49,8 @@ Maps the function over right, ignores the left
 
 if Right, it runs.. if Left.. it doesn't run
 
+* isn't as useful with async
+
 ```
 map(x => x + 1,Right(2))
 //=> Right(3)
@@ -72,4 +74,49 @@ yearOlder({age: 22})
 
 yearOlder({age:null})
 //=> Left("Couldn't get Age")
+```
+
+## IO
+
+A functor --- but instead of str, number, etc... it holds a function
+
+A lazy computation 'builder'
+
+Typically used to contain side-effects
+
+You must runIO to perform the operation
+
+Map appends the function to a list of things to run the effectful value
+
+io ex 1
+```
+var email_io = IO(function(){return $("#email").val() })
+// *the value of the email field goes into concat
+var msg_io = map(concat("welcome"),email_io)
+
+runIO(msg_io)
+
+//=> "welcome steve@gmail.com"
+
+```
+
+io ex 2
+```
+var getBgColor = compose(get('background-color'),JSON.parse)
+var bgPref = compose(map(getBgColor),Store.get("preferences"))
+
+var app = bgPref()
+//=> IO()
+
+// runIO(app)
+//=> #efefef
+```
+
+// if you need to pass arguments to functions that take arguments
+```
+
+var email_io = IO(function(){return $("#email").val()})
+
+var getValue = function(sel){ return $(sel).val()}.toIO()
+
 ```
