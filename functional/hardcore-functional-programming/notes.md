@@ -120,3 +120,51 @@ var email_io = IO(function(){return $("#email").val()})
 var getValue = function(sel){ return $(sel).val()}.toIO()
 
 ```
+
+
+## EventStream
+
+ An infinite list of results
+
+ Dual of Array
+
+ It's map is sometimes lazy
+
+ Calls the mapped function each time an event happens
+```
+ var id_s = map(function(e){return '#'+e.id}, Bacon.fromEventTarget(document,"click"))
+ //=> EventStream(String
+var element_s = map(document.querySelector,id_s)
+//=> EventStream(Element)
+
+
+id_s.onValue(function(id){ alert('you clicked'+id) })
+element_s.onValue(function(el){alert('The inner html is' + el.innerHTML)})
+
+```
+
+
+...
+
+## Future
+
+has an eventual value
+
+similar to a promise, but it's lazy
+
+You must fork it to kick it off
+
+It takes a function as it's value
+
+Calls the function with it's results once it is there
+
+```
+var makeHtml = function(post){
+  return `<div>${post.title}</div`
+}
+var page_f = map(makeHtml,http.get('/posts/2'))
+
+page_f.fork(function(err){throw(err)},
+function(page){$("#container").html(page)})
+
+```
